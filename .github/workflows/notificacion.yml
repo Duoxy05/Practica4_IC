@@ -14,13 +14,13 @@ jobs:
     - name: Checkout del código
       uses: actions/checkout@v4
 
-    # 2. Configurar el entorno de Python
+    # 2. Configurar el entorno de Python correctamente
     - name: Configurar Python
       uses: actions/setup-python@v5
       with:
-        python_python-version: '3.10'
+        python-version: '3.10'
 
-    # 3. Ejecutar la prueba unitaria para verificar que todo esté bien
+    # 3. Ejecutar la prueba unitaria usando el módulo nativo de Python
     - name: Ejecutar pruebas unitarias
       run: |
         python -m unittest test_app.py
