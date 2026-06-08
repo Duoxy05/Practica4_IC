@@ -1,0 +1,32 @@
+name: CI DevOps ITLA
+
+# El flujo se activa cada vez que se hace un push a la rama main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Descargar el código del repositorio en el servidor de GitHub
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    # 2. Configurar el entorno de Python
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python_python-version: '3.10'
+
+    # 3. Ejecutar la prueba unitaria para verificar que todo esté bien
+    - name: Ejecutar pruebas unitarias
+      run: |
+        python -m unittest test_app.py
+
+    # 4. Si las pruebas pasan, enviar la notificación a ntfy.sh
+    - name: Enviar notificación a ntfy.sh
+      if: success()
+      run: |
+        curl -d "🚀 ¡Práctica 4 exitosa! Código subido a main y pruebas unitarias pasadas." https://ntfy.sh/devops-itla

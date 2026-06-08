@@ -1,1 +1,5 @@
-print("Hola a todos")
+def saludar():
+    return "hola a todos"
+
+if __name__ == "__main__":
+    print(saludar())
